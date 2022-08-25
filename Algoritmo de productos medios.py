@@ -1,3 +1,4 @@
+import confirmacionDeAleatoriedad
 def numeroPseudo(result,result2):
 
     result=result*result2
@@ -25,7 +26,7 @@ else:
     x = numeroPseudo(seed,seed2)
     y = 10 ** len(str(x))
     semillas.append(x)
-    resultados.append( "{:.4f}".format((x/y)))
+    resultados.append(float( "{:.4f}".format((x/y))))
 
 
     antes=seed2
@@ -33,17 +34,23 @@ else:
     for i in range(1,ri):
 
         x=numeroPseudo(antes,ahora)
-        print(x)
+        #print(x)
         y=10** len(str(x))
-        print(y)
+        #print(y)
         resultados.append(x/y)
         semillas.append(x)
         antes=ahora
         ahora=semillas[i]
 
-print(semillas)
+#print(semillas)
 print(resultados)
 
 print("los resultados son: ")
 for x in resultados:
     print(x)
+
+
+confirmacionDeAleatoriedad.media(resultados)
+confirmacionDeAleatoriedad.varianza(resultados)
+confirmacionDeAleatoriedad.Prueba_corrida_media(resultados)
+confirmacionDeAleatoriedad.graficaDeLaNormal(resultados)
