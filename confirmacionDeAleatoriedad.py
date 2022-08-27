@@ -100,5 +100,5 @@ def graficaDeLaNormal(lista):
     print(df)
     fig = plot.figure()
     ax = fig.add_subplot(111)
-    res = stats.probplot(df["numerosAleatorios"], dist=stats.norm, sparams=(6,), plot=ax)
+    res = stats.probplot(df["numerosAleatorios"], dist=stats.uniform, sparams=(6,), plot=ax)
     plot.show()
