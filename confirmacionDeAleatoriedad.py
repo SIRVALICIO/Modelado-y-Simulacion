@@ -38,8 +38,8 @@ def varianza(lista):
 
         var=total/(n-1)
 
-        livar=(scipy.stats.chi2.ppf(1-0.025,n-1))/(12*(n-1))
-        lsvar=(scipy.stats.chi2.ppf(0.025,n-1))/(12*(n-1))
+        lsvar=(scipy.stats.chi2.ppf(1-0.025,n-1))/(12*(n-1))
+        livar=(scipy.stats.chi2.ppf(0.025,n-1))/(12*(n-1))
         print("La varianza es de: ",var,"\n")
         print("El limite inferior es: ",livar," Y el limite superior es: ",lsvar,"\n")
 

@@ -40,7 +40,7 @@ print(resultados)
 
 print("los resultados son: ")
 for x in resultados:
-    print()
+    print(x)
 
 
 confirmacionDeAleatoriedad.media(resultados)
