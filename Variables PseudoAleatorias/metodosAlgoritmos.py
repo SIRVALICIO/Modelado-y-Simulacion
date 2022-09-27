@@ -9,7 +9,24 @@ def VisualBase(x0):
         ri=(x_1)/((2**24)-1)
         resultados_ri.append(ri)
         X0=x_1
+
+
     return resultados_ri
+
+def Fortran(x0):
+    X0=int(x0)
+
+
+    resultados_ri=[]
+    for i in range (0,10000):
+        x_1= ( 630360016*X0)%((2**31)-1)
+        ri=(x_1)/((2**24)-1)
+        resultados_ri.append(ri)
+        X0=x_1
+
+
+    return resultados_ri
+
 def ConguencialMultplicativo(g,k,x0):
     X0 = int(x0)
     g=abs(int(g))

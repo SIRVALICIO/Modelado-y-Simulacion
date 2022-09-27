@@ -2,13 +2,12 @@ import statistics
 import tkinter as tk
 from tkinter import ttk
 from tkinter import Canvas
+import tkinter.messagebox
 
-import matplotlib.pyplot as plt
+
 from matplotlib.figure import Figure
-from scipy.stats import norm
-from scipy.stats import skew
-from statistics import mode
-from scipy.stats import kurtosis
+from scipy import stats
+
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 NavigationToolbar2Tk)
 import metodosAlgoritmos as ma
@@ -74,7 +73,10 @@ def generarSecuencia():
         res = ma.CongruencialCuadratico(texto_g.get(),texto_a.get(),texto_b.get(),texto_c.get(),texto_x0.get())
         vectorResultadosNumeros.append(res)
         print(vectorResultadosNumeros)
-
+    elif varStringGenerador.get()=="Fortran":
+        res = ma.Fortran(texto_x0.get())
+        vectorResultadosNumeros.append(res)
+        print(vectorResultadosNumeros)
 
 
 botonGenerar=tk.Button(master,text="Generar secuencia",command=generarSecuencia)
@@ -145,7 +147,11 @@ def algoritmoSeleccionado(event):
         botonGenerar.place(x=0, y=290)
 
         print()
-
+    elif varStringGenerador.get()=="Fortran":
+        label_x0.place(x=0, y=90)
+        texto_x0.place(x=0, y=110)
+        botonGenerar.place(x=0, y=130)
+        print(texto_x0.get())
 
 
 
@@ -171,41 +177,104 @@ texto_Ca=tk.Entry(master,textvariable=variable_Ca)
 
 def generarVariable():
     fig.clear()
-    if varStringVariable.get() == "Normal":
+    if varStringVariable.get() == "Box Muller":
+        if (len(vectorResultadosNumeros)>=2):
 
+            resul=mv.boxMuller(vectorResultadosNumeros,variable_Me.get(),variable_Va.get(),variable_Ca.get())
+            plot = fig.add_subplot(111)
+            #plot.plot(resul,norm.pdf(resul, norm.pdf(resul,statistics.mean(resul),statistics.stdev(resul))))
+            plot.hist(resul,200)
+            #plot.plot(resul)
+            #FPD_normal=stats.norm(10,2).pdf(resul)
+            #plot.plot(resul,FPD_normal)
+            canvas.draw()
 
-        resul=mv.boxMuller(vectorResultadosNumeros,variable_Me.get(),variable_Va.get(),variable_Ca.get())
-        plot = fig.add_subplot(111)
-        plot.plot(resul,norm.pdf(resul, norm.pdf(resul,statistics.mean(resul),statistics.stdev(resul))))
-        canvas.draw()
-
-        print(resul)
+            print(resul)
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("NO se puede realizar la accion","Se necesita minimo 2 secuencias apra generar una vairables")
     elif varStringVariable.get() == "Logaritmica Normal":
-        lognormal=lognorm(0.6)
 
-        resul=mv.logaritmica(variable_Ca.get())
-        plot=fig.add_subplot(111)
-        plot.plot(resul,lognormal.pdf(resul))
-        canvas.draw()
-        print()
+        if(len(mv.listaXI)>=1):
+            resul=mv.logaritmica(variable_Ca.get())
+            plot=fig.add_subplot(111)
+
+            #sigma = 0.6  # parametro
+            #lognormal = stats.lognorm(sigma)
+            #x=np.linspace(lognormal.ppf(min(resul)),lognormal.ppf(max(resul)),100)
+            #fp=lognormal.pdf(resul)
+            sigma = 1  # parametro
+            lognormal = stats.lognorm(sigma)
+            #x = np.linspace(lognormal.ppf(0.01),lognormal.ppf(0.99), 100)
+            fp = lognormal.pdf(resul)
+            plot.plot(resul,fp)
+            #plot.hist(resul, 200)
+            canvas.draw()
+            print()
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("No se puede realizar la accion","Se necesita minimo que genera una vez unas variables de distribucion normal para hacer el proceso")
     elif varStringVariable.get()=="Chi cuadrado normal":
-        resul = mv.chi2(variable_Ca.get())
-        print(resul)
+        if len(mv.listaXI)>=3:
+
+            resul = mv.chi2(variable_Ca.get())
+            print(resul)
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("No se puede realizar la accion","Se necesita minimo que genere 3 secuencias de variables de distribucion normal para hacer este proceso")
     elif varStringVariable.get()=="T":
-        resul=mv.t(variable_Ca.get())
+        if(len(mv.listaXI)>=1 and len(mv.listaCHI2)>1):
+            resul=mv.t(variable_Ca.get())
+            print(resul)
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("No se puede realizar la accion",
+                                    "Se necesita minimo que genera una vez unas variables de distribucion normal para hacer el proceso\n tambien que tenga un conjunto mayor a 1 de variables de chi2")
 
 
-        print(resul)
     elif varStringVariable.get() == "F":
-        resul=mv.f(variable_Ca.get())
-        print()
+        if len(mv.listaCHI2)>=2:
+            resul=mv.f(variable_Ca.get())
+            print(resul)
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("No se puede realizar la accion",
+                                    "Se necesita minimo que genera 2 veces unas variables de distribucion chi2 para hacer el proceso")
+
     elif varStringVariable.get() == "Exponencial":
 
-        print()
-    canvas.get_tk_widget().place(x=600)
+        if variable_Ta.get()!=0 and len(mv.listaXI)>=1:
+            resul=mv.exponencual(variable_Ca.get(),variable_Ta.get())
+            print(resul)
+            canvas.get_tk_widget().place(x=600)
+        else:
+            tkinter.messagebox.showinfo("No se puede realizar la accion",
+                                    "Se necesita minimo que genera una vez unas variables de distribucion normal para hacer el proceso")
+
+
     print()
 
 botonVariable=tk.Button(master,text="Generar secuencia",command=generarVariable)
+
+def borrarSecuencia():
+    global  vectorResultadosNumeros
+    vectorResultadosNumeros.clear()
+    print(vectorResultadosNumeros)
+
+    tk.messagebox.showinfo("Secuenvia Elminada",
+                                "La secuencia se elimino con exito")
+
+botonBorrarSecuencia=tk.Button(master,text="Borrar secuencias existentes",command=borrarSecuencia)
+botonBorrarSecuencia.place(y=500)
+
+def borrarVariables():
+    mv.limpiarXI()
+    print(mv.listaCHI2,mv.listaXI)
+    tk.messagebox.showinfo("Variables Elminadas",
+                           "Las variables se elimino con exito")
+
+botonBorrarSecuencia=tk.Button(master,text="Borrar variables",command=borrarVariables)
+botonBorrarSecuencia.place(y=540)
 def VariableSeleccionada(event):
 
     global label_Me
@@ -229,14 +298,14 @@ def VariableSeleccionada(event):
     texto_Ca.place_forget()
 
 
-    if varStringVariable.get()=="Normal":
-        label_Me.place(x=300,y=90)
-        texto_Me.place(x=300,y=110)
-        label_Va.place(x=300,y=130)
-        texto_Va.place(x=300,y=150)
-        label_Ca.place(x=300,y=170)
-        texto_Ca.place(x=300,y=190)
-        botonVariable.place(x=300,y=210)
+    if varStringVariable.get()=="Box Muller":
+        #label_Me.place(x=300,y=90)
+        #texto_Me.place(x=300,y=110)
+        #label_Va.place(x=300,y=130)
+        #texto_Va.place(x=300,y=150)
+        label_Ca.place(x=300,y=90)
+        texto_Ca.place(x=300,y=110)
+        botonVariable.place(x=300,y=130)
 
         print()
     elif varStringVariable.get()=="Logaritmica Normal":
@@ -289,7 +358,7 @@ varStringGenerador=tk.StringVar()
 listboxAl=ttk.Combobox(master,
                      textvariable=varStringGenerador,
                      height=6)
-listboxAl["values"]=["Visual Base","Congruencial Multiplicativo","Congruencial Cuadratico"]
+listboxAl["values"]=["Visual Base","Fortran","Congruencial Multiplicativo","Congruencial Cuadratico"]
 listboxAl["state"]="readonly"
 
 LabelGrafica.place(x=0,y=50)
@@ -306,7 +375,7 @@ varStringVariable=tk.StringVar()
 listboxVa=ttk.Combobox(master,
                      textvariable=varStringVariable,
                      height=6)
-listboxVa["values"]=["Normal","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial"]
+listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial"]
 listboxVa["state"]="readonly"
 
 LabelMetodo.place(x=300,y=50)

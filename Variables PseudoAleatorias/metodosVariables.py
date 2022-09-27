@@ -1,6 +1,10 @@
 import numpy as np
 import math
 
+def limpiarXI():
+    listaXI.clear()
+    listaCHI2.clear()
+
 listaXI=[]
 listaCHI2=[]
 
@@ -11,10 +15,17 @@ def boxMuller(lista,media ,varianza, cantidad):
     r2=lista[1]
 
     for i in range (0,cantidad):
-            zi= ((-2*np.log(r1[i]))**(1/2)) * math.cos((2*np.pi)*r2[i])
-            Xi=media+ (varianza*zi)
+            print("r2 ",r1[i])
+            print("r2 ",r2[i])
+            z1= math.sqrt(-2*np.log10(r1[i]))
+            z2=math.cos(2*np.pi *r2[i])
+            print("Numerador ",z1)
+            print("denominador ",z2)
+            zi= z1*z2
+            Xi=10+ (2*zi)
             vectorXi.append(Xi)
     listaXI.append(vectorXi)
+    vectorXi.sort()
     return  vectorXi
 def logaritmica(cantidad):
     Xi=listaXI[0]
