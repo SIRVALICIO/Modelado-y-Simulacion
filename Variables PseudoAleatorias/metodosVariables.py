@@ -54,7 +54,7 @@ def t(cantidad):
         for j in listaXI:
             total+= j[i]
         print(total)
-        total= (total/listaCHI2.count())**(1/2)
+        total= (total / len(listaCHI2)) ** (1 / 2)
         res=Xi[i]/total
         vectorT.append(res)
     return vectorT

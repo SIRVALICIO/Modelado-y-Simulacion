@@ -183,7 +183,7 @@ def generarVariable():
             resul=mv.boxMuller(vectorResultadosNumeros,variable_Me.get(),variable_Va.get(),variable_Ca.get())
             plot = fig.add_subplot(111)
             #plot.plot(resul,norm.pdf(resul, norm.pdf(resul,statistics.mean(resul),statistics.stdev(resul))))
-            plot.hist(resul,200)
+            plot.hist(resul,80)
             #plot.plot(resul)
             #FPD_normal=stats.norm(10,2).pdf(resul)
             #plot.plot(resul,FPD_normal)
@@ -203,12 +203,12 @@ def generarVariable():
             #lognormal = stats.lognorm(sigma)
             #x=np.linspace(lognormal.ppf(min(resul)),lognormal.ppf(max(resul)),100)
             #fp=lognormal.pdf(resul)
-            sigma = 1  # parametro
-            lognormal = stats.lognorm(sigma)
+            ##sigma = 1  # parametro
+            ##lognormal = stats.lognorm(sigma)
             #x = np.linspace(lognormal.ppf(0.01),lognormal.ppf(0.99), 100)
-            fp = lognormal.pdf(resul)
-            plot.plot(resul,fp)
-            #plot.hist(resul, 200)
+            ##fp = lognormal.pdf(resul)
+            ##plot.plot(resul,fp)
+            plot.hist(resul,80)
             canvas.draw()
             print()
             canvas.get_tk_widget().place(x=600)
@@ -219,6 +219,9 @@ def generarVariable():
 
             resul = mv.chi2(variable_Ca.get())
             print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul)
+            canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
             tkinter.messagebox.showinfo("No se puede realizar la accion","Se necesita minimo que genere 3 secuencias de variables de distribucion normal para hacer este proceso")
@@ -226,6 +229,9 @@ def generarVariable():
         if(len(mv.listaXI)>=1 and len(mv.listaCHI2)>1):
             resul=mv.t(variable_Ca.get())
             print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul)
+            canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
             tkinter.messagebox.showinfo("No se puede realizar la accion",
@@ -236,6 +242,9 @@ def generarVariable():
         if len(mv.listaCHI2)>=2:
             resul=mv.f(variable_Ca.get())
             print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul)
+            canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
             tkinter.messagebox.showinfo("No se puede realizar la accion",
@@ -246,6 +255,9 @@ def generarVariable():
         if variable_Ta.get()!=0 and len(mv.listaXI)>=1:
             resul=mv.exponencual(variable_Ca.get(),variable_Ta.get())
             print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul)
+            canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
             tkinter.messagebox.showinfo("No se puede realizar la accion",
