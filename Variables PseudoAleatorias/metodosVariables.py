@@ -75,3 +75,23 @@ def exponencual(cantidad,tasa):
         resul= (-1/tasa ) * np.log10(XI[i])
         vectorF.append(resul)
     return vectorF
+def gamma(lista,cantidad,alpha,beta):
+    r1 = lista[0]
+    r2 = lista[1]
+
+    a= 1/math.sqrt((2*alpha)-1)
+    b=alpha - np.log10(4)
+    q= alpha+(1/alpha)
+    teta=4.5
+    d= 1 + np.log10(teta)
+    listaGamma=[]
+    for i in range(0, cantidad):
+        vi= a * np.log10(r1[i]/(1-r2[i]))
+        zi= (r1[i]**2)+ r2[i]
+        yi=  alpha * (np.e**vi)
+        wi=b+ (q*vi) - yi
+        if (wi+d)-(teta*zi)>=np.log10(zi):
+            listaGamma.append(beta*yi)
+        elif wi>=np.log10(zi):
+            listaGamma.append(beta * yi)
+    return listaGamma

@@ -174,6 +174,15 @@ variable_Ca=tk.IntVar()
 label_Ca=tk.Label(master,text="Ingrese la cantidad de variables que quiere")
 texto_Ca=tk.Entry(master,textvariable=variable_Ca)
 
+variable_alpha=tk.IntVar()
+label_alpha=tk.Label(master,text="Ingrese un valor de alpha")
+texto_alpha=tk.Entry(master,textvariable=variable_alpha)
+
+variable_Beta=tk.IntVar()
+label_Beta=tk.Label(master,text="Ingrese la cantidad de variables que quiere")
+texto_Beta=tk.Entry(master,textvariable=variable_Beta)
+
+
 
 def generarVariable():
     fig.clear()
@@ -263,7 +272,15 @@ def generarVariable():
             tkinter.messagebox.showinfo("No se puede realizar la accion",
                                     "Se necesita minimo que genera una vez unas variables de distribucion normal para hacer el proceso")
 
-
+    elif varStringVariable.get()=="Gamma":
+        if (len(vectorResultadosNumeros) >= 2):
+            resul=mv.gamma(vectorResultadosNumeros,variable_Ca.get(),variable_alpha.get(),variable_Beta.get())
+            print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul)
+            canvas.draw()
+            canvas.get_tk_widget().place(x=600)
+        print()
     print()
 
 botonVariable=tk.Button(master,text="Generar secuencia",command=generarVariable)
@@ -309,6 +326,17 @@ def VariableSeleccionada(event):
     label_Ca.place_forget()
     texto_Ca.place_forget()
 
+    global label_alpha
+    global texto_alpha
+
+    label_alpha.place_forget()
+    texto_alpha.place_forget()
+
+    global label_Beta
+    global texto_Beta
+
+    label_Beta.place_forget()
+    texto_Beta.place_forget()
 
     if varStringVariable.get()=="Box Muller":
         #label_Me.place(x=300,y=90)
@@ -349,6 +377,14 @@ def VariableSeleccionada(event):
         texto_Ca.place(x=300, y=150)
         botonVariable.place(x=300, y=170)
         print()
+    elif varStringVariable.get()=="Gamma":
+        label_alpha.place(x=300,y=90)
+        texto_alpha.place(x=300,y=110)
+        label_Beta.place(x=300,y=130)
+        texto_Beta.place(x=300,y=150)
+        label_Ca.place(x=300,y=170)
+        texto_Ca.place(x=300,y=190)
+        botonVariable.place(x=300,y=210)
     print()
 
 
@@ -387,7 +423,7 @@ varStringVariable=tk.StringVar()
 listboxVa=ttk.Combobox(master,
                      textvariable=varStringVariable,
                      height=6)
-listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial"]
+listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial","Gamma"]
 listboxVa["state"]="readonly"
 
 LabelMetodo.place(x=300,y=50)
