@@ -90,7 +90,7 @@ def gamma(lista,cantidad,alpha,beta):
         zi= (r1[i]**2)+ r2[i]
         yi=  alpha * (np.e**vi)
         wi=b+ (q*vi) - yi
-        if (wi+d)-(teta*zi)>=np.log10(zi):
+        if (wi+d)-(teta*zi)> 0:
             listaGamma.append(beta*yi)
         elif wi>=np.log10(zi):
             listaGamma.append(beta * yi)

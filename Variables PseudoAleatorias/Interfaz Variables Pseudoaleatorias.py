@@ -179,7 +179,7 @@ label_alpha=tk.Label(master,text="Ingrese un valor de alpha")
 texto_alpha=tk.Entry(master,textvariable=variable_alpha)
 
 variable_Beta=tk.IntVar()
-label_Beta=tk.Label(master,text="Ingrese la cantidad de variables que quiere")
+label_Beta=tk.Label(master,text="Ingrese un valor de beta que quiere")
 texto_Beta=tk.Entry(master,textvariable=variable_Beta)
 
 
@@ -229,7 +229,7 @@ def generarVariable():
             resul = mv.chi2(variable_Ca.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul)
+            plot.hist(resul,80)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
@@ -239,7 +239,7 @@ def generarVariable():
             resul=mv.t(variable_Ca.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul)
+            plot.hist(resul,80)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
@@ -252,7 +252,7 @@ def generarVariable():
             resul=mv.f(variable_Ca.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul)
+            plot.hist(resul,80)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
@@ -265,7 +265,7 @@ def generarVariable():
             resul=mv.exponencual(variable_Ca.get(),variable_Ta.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul)
+            plot.hist(resul,80)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
         else:
@@ -277,7 +277,7 @@ def generarVariable():
             resul=mv.gamma(vectorResultadosNumeros,variable_Ca.get(),variable_alpha.get(),variable_Beta.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul)
+            plot.hist(resul,80)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
         print()

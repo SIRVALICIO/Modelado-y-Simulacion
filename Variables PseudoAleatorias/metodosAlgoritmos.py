@@ -4,7 +4,7 @@ def VisualBase(x0):
 
 
     resultados_ri=[]
-    for i in range (0,10000):
+    for i in range (0,1000000):
         #x_1= ( 1140671485 + (12820163+X0))%(2**24)
         x_1 = (1140671485 * (12820163 + X0)) % (2 ** 24)
         ri=(x_1)/((2**24)-1)
@@ -19,7 +19,7 @@ def Fortran(x0):
 
 
     resultados_ri=[]
-    for i in range (0,10000):
+    for i in range (0,1000000):
         x_1= ( 630360016*(X0+1))%((2**31)-1)
         ri=(x_1)/((2**31)-1)
         resultados_ri.append(ri)
