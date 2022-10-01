@@ -15,12 +15,12 @@ def boxMuller(lista,media ,varianza, cantidad):
     r2=lista[1]
 
     for i in range (0,cantidad):
-            print("r2 ",r1[i])
-            print("r2 ",r2[i])
+            #print("r2 ",r1[i])
+            #print("r2 ",r2[i])
             z1= math.sqrt(-2*np.log10(r1[i]))
             z2=math.cos(2*np.pi *r2[i])
-            print("Numerador ",z1)
-            print("denominador ",z2)
+            #print("Numerador ",z1)
+            #print("denominador ",z2)
             zi= z1*z2
             Xi=10+ (2*zi)
             vectorXi.append(Xi)
@@ -87,7 +87,7 @@ def gamma(lista,cantidad,alpha,beta):
     listaGamma=[]
     for i in range(0, cantidad):
         vi= a * np.log10(r1[i]/(1-r2[i]))
-        zi= (r1[i]**2)+ r2[i]
+        zi= (r1[i]**2)*r2[i]
         yi=  alpha * (np.e**vi)
         wi=b+ (q*vi) - yi
         if (wi+d)-(teta*zi)> 0:

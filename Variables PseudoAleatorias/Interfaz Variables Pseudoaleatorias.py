@@ -174,11 +174,11 @@ variable_Ca=tk.IntVar()
 label_Ca=tk.Label(master,text="Ingrese la cantidad de variables que quiere")
 texto_Ca=tk.Entry(master,textvariable=variable_Ca)
 
-variable_alpha=tk.IntVar()
+variable_alpha=tk.DoubleVar()
 label_alpha=tk.Label(master,text="Ingrese un valor de alpha")
 texto_alpha=tk.Entry(master,textvariable=variable_alpha)
 
-variable_Beta=tk.IntVar()
+variable_Beta=tk.DoubleVar()
 label_Beta=tk.Label(master,text="Ingrese un valor de beta que quiere")
 texto_Beta=tk.Entry(master,textvariable=variable_Beta)
 
@@ -217,7 +217,7 @@ def generarVariable():
             #x = np.linspace(lognormal.ppf(0.01),lognormal.ppf(0.99), 100)
             ##fp = lognormal.pdf(resul)
             ##plot.plot(resul,fp)
-            plot.hist(resul,80)
+            plot.hist(resul)
             canvas.draw()
             print()
             canvas.get_tk_widget().place(x=600)
@@ -277,10 +277,12 @@ def generarVariable():
             resul=mv.gamma(vectorResultadosNumeros,variable_Ca.get(),variable_alpha.get(),variable_Beta.get())
             print(resul)
             plot = fig.add_subplot(111)
-            plot.hist(resul,80)
+            plot.hist(resul,100)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
-        print()
+        print(variable_Beta.get())
+        print(variable_alpha.get())
+
     print()
 
 botonVariable=tk.Button(master,text="Generar secuencia",command=generarVariable)
