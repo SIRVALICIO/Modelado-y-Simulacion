@@ -58,6 +58,20 @@ variable_c=tk.IntVar()
 label_c=tk.Label(master,text="Ingrese una valor de C")
 texto_c=tk.Entry(master,textvariable =variable_c)
 
+Variable_A=tk.IntVar()
+label_A=tk.Label(master,text="Ingrese el punto A del triangulo")
+entrada_A=tk.Entry(master,textvariable =Variable_A)
+
+Variable_B=tk.IntVar()
+label_B=tk.Label(master,text="Ingrese el punto A del triangulo")
+entrada_B=tk.Entry(master,textvariable =Variable_B)
+
+Variable_C=tk.IntVar()
+label_C=tk.Label(master,text="Ingrese el punto A del triangulo")
+entrada_C=tk.Entry(master,textvariable =Variable_C)
+
+
+
 
 def generarSecuencia():
     if varStringGenerador.get() == "Visual Base":
@@ -425,7 +439,7 @@ varStringVariable=tk.StringVar()
 listboxVa=ttk.Combobox(master,
                      textvariable=varStringVariable,
                      height=6)
-listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial","Gamma"]
+listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial","Gamma","Composicion"]
 listboxVa["state"]="readonly"
 
 LabelMetodo.place(x=300,y=50)

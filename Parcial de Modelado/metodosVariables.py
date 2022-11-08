@@ -95,3 +95,128 @@ def gamma(lista,cantidad,alpha,beta):
         elif wi>=np.log10(zi):
             listaGamma.append(beta * yi)
     return listaGamma
+
+def composicion(listaABC,R1,R2,tamaño):
+    resultados=[]
+    ListaProbabilidades=[]
+    prabilidad=0
+    resul=0
+
+    total=listaABC[-1][-1]-listaABC[0][0]
+    print(len(listaABC))
+    for i in range (0,len(listaABC)):
+        a=listaABC[i][0]
+        b=listaABC[i][1]
+        c=listaABC[i][2]
+
+        prabilidad+= (b-a)/total
+        ListaProbabilidades.append(prabilidad)
+        prabilidad+= (c-b)/total
+        ListaProbabilidades.append(prabilidad)
+
+
+    print(ListaProbabilidades)
+
+
+    if len(ListaProbabilidades)==2:
+        for i in range(0, tamaño):
+            if R1[i]<=ListaProbabilidades[0]:
+                resul= listaABC[0][0]+(math.sqrt(R2[i])*(listaABC[0][1]-listaABC[0][0]))
+                ListaProbabilidades.append(resul)
+            else:
+                resul= listaABC[0][2]-(math.sqrt(1-R2[i])*(listaABC[0][2]-listaABC[0][1]))
+                ListaProbabilidades.append(resul)
+    elif  len(ListaProbabilidades)==4:
+        for i in range(0, tamaño):
+            if R1[i]<=ListaProbabilidades[0]:
+                resul= listaABC[0][0]+(math.sqrt(R2[i])*(listaABC[0][1]-listaABC[0][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[1]:
+                resul= listaABC[0][2]-(math.sqrt(1-R2[i])*(listaABC[0][2]-listaABC[0][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[2]:
+                resul= listaABC[1][0]+(math.sqrt(R2[i])*(listaABC[1][1]-listaABC[1][0]))
+                ListaProbabilidades.append(resul)
+            else:
+                resul= listaABC[1][2]-(math.sqrt(1-R2[i])*(listaABC[1][2]-listaABC[1][1]))
+                ListaProbabilidades.append(resul)
+    elif  len(ListaProbabilidades)==6:
+        for i in range(0, tamaño):
+            if R1[i]<=ListaProbabilidades[0]:
+                resul= listaABC[0][0]+(math.sqrt(R2[i])*(listaABC[0][1]-listaABC[0][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[1]:
+                resul= listaABC[0][2]-(math.sqrt(1-R2[i])*(listaABC[0][2]-listaABC[0][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[2]:
+                resul= listaABC[1][0]+(math.sqrt(R2[i])*(listaABC[1][1]-listaABC[1][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[3]:
+                resul= listaABC[1][2]-(math.sqrt(1-R2[i])*(listaABC[1][2]-listaABC[1][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[4]:
+                resul= listaABC[2][0]+(math.sqrt(R2[i])*(listaABC[2][1]-listaABC[2][0]))
+                ListaProbabilidades.append(resul)
+            else:
+                resul= listaABC[2][2]-(math.sqrt(1-R2[i])*(listaABC[2][2]-listaABC[2][1]))
+                ListaProbabilidades.append(resul)
+    elif  len(ListaProbabilidades)==8:
+        for i in range(0, tamaño):
+            if R1[i]<=ListaProbabilidades[0]:
+                resul= listaABC[0][0]+(math.sqrt(R2[i])*(listaABC[0][1]-listaABC[0][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[1]:
+                resul= listaABC[0][2]-(math.sqrt(1-R2[i])*(listaABC[0][2]-listaABC[0][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[2]:
+                resul= listaABC[1][0]+(math.sqrt(R2[i])*(listaABC[1][1]-listaABC[1][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[3]:
+                resul= listaABC[1][2]-(math.sqrt(1-R2[i])*(listaABC[1][2]-listaABC[1][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[4]:
+                resul= listaABC[2][0]+(math.sqrt(R2[i])*(listaABC[2][1]-listaABC[2][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[5] :
+                resul= listaABC[2][2]-(math.sqrt(1-R2[i])*(listaABC[2][2]-listaABC[2][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i]<=ListaProbabilidades[6]:
+                resul= listaABC[3][0]+(math.sqrt(R2[i])*(listaABC[3][1]-listaABC[3][0]))
+                ListaProbabilidades.append(resul)
+            else:
+                resul= listaABC[3][2]-(math.sqrt(1-R2[i])*(listaABC[3][2]-listaABC[3][1]))
+                ListaProbabilidades.append(resul)
+    else:
+        for i in range(0, tamaño):
+            if R1[i] <= ListaProbabilidades[0]:
+                resul = listaABC[0][0] + (math.sqrt(R2[i]) * (listaABC[0][1] - listaABC[0][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[1]:
+                resul = listaABC[0][2] - (math.sqrt(1 - R2[i]) * (listaABC[0][2] - listaABC[0][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[2]:
+                resul = listaABC[1][0] + (math.sqrt(R2[i]) * (listaABC[1][1] - listaABC[1][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[3]:
+                resul = listaABC[1][2] - (math.sqrt(1 - R2[i]) * (listaABC[1][2] - listaABC[1][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[4]:
+                resul = listaABC[2][0] + (math.sqrt(R2[i]) * (listaABC[2][1] - listaABC[2][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[5]:
+                resul = listaABC[2][2] - (math.sqrt(1 - R2[i]) * (listaABC[2][2] - listaABC[2][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[6]:
+                resul = listaABC[3][0] + (math.sqrt(R2[i]) * (listaABC[3][1] - listaABC[3][0]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[7]:
+                resul = listaABC[3][2] - (math.sqrt(1 - R2[i]) * (listaABC[3][2] - listaABC[3][1]))
+                ListaProbabilidades.append(resul)
+            elif R1[i] <= ListaProbabilidades[8]:
+                resul = listaABC[4][0] + (math.sqrt(R2[i]) * (listaABC[4][1] - listaABC[4][0]))
+                ListaProbabilidades.append(resul)
+            else:
+                resul = listaABC[4][2] - (math.sqrt(1 - R2[i]) * (listaABC[4][2] - listaABC[4][1]))
+                ListaProbabilidades.append(resul)
+    return ListaProbabilidades
+
