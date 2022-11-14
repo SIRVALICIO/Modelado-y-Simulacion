@@ -17,7 +17,7 @@ from scipy.stats import lognorm
 
 
 
-
+listaTraingulo=[]
 master=tk.Tk()
 master.geometry("1380x980")
 
@@ -32,6 +32,8 @@ fig = Figure(figsize=(5, 5),
 canvas = FigureCanvasTkAgg(fig,
                                master=master)
 
+
+cantidadTriangulos=0
 
 variable_a=tk.IntVar()
 label_k=tk.Label(master,text="Ingresa un valor de K")
@@ -58,16 +60,16 @@ variable_c=tk.IntVar()
 label_c=tk.Label(master,text="Ingrese una valor de C")
 texto_c=tk.Entry(master,textvariable =variable_c)
 
-Variable_A=tk.IntVar()
+Variable_A=tk.DoubleVar()
 label_A=tk.Label(master,text="Ingrese el punto A del triangulo")
 entrada_A=tk.Entry(master,textvariable =Variable_A)
 
-Variable_B=tk.IntVar()
-label_B=tk.Label(master,text="Ingrese el punto A del triangulo")
+Variable_B=tk.DoubleVar()
+label_B=tk.Label(master,text="Ingrese el punto B del triangulo")
 entrada_B=tk.Entry(master,textvariable =Variable_B)
 
-Variable_C=tk.IntVar()
-label_C=tk.Label(master,text="Ingrese el punto A del triangulo")
+Variable_C=tk.DoubleVar()
+label_C=tk.Label(master,text="Ingrese el punto C del triangulo")
 entrada_C=tk.Entry(master,textvariable =Variable_C)
 
 
@@ -196,9 +198,10 @@ variable_Beta=tk.DoubleVar()
 label_Beta=tk.Label(master,text="Ingrese un valor de beta que quiere")
 texto_Beta=tk.Entry(master,textvariable=variable_Beta)
 
-
+labelTriangulos=tk.Label(master,text="La cantidad actual de triangulos es: "+str(cantidadTriangulos))
 
 def generarVariable():
+    global listaTraingulo
     fig.clear()
     if varStringVariable.get() == "Box Muller":
         if (len(vectorResultadosNumeros)>=2):
@@ -296,10 +299,48 @@ def generarVariable():
             canvas.get_tk_widget().place(x=600)
         print(variable_Beta.get())
         print(variable_alpha.get())
+    elif varStringVariable.get() == "Composicion":
+
+            resul = mv.composicion(listaTraingulo ,vectorResultadosNumeros[0],vectorResultadosNumeros[1],variable_Ca.get())
+            print(resul)
+            plot = fig.add_subplot(111)
+            plot.hist(resul, 100)
+            canvas.draw()
+            canvas.get_tk_widget().place(x=600)
+
 
     print()
 
 botonVariable=tk.Button(master,text="Generar secuencia",command=generarVariable)
+
+def AgregarTriangulo():
+    global listaTraingulo
+    global Variable_A
+    global Variable_B
+    global Variable_C
+    global labelTriangulos
+    global cantidadTriangulos
+    if len(listaTraingulo)==5:
+        print("No se puede mi loco")
+        tkinter.messagebox.showinfo("NO se puede realizar la accion",
+                                    "El limite de triangulos es de 5, por lo cual no se le permitira ingresar mas triangulos")
+    else:
+        listaTraingulo.append([Variable_A.get(),Variable_B.get(),Variable_C.get()])
+        print(listaTraingulo)
+        cantidadTriangulos+=1
+        labelTriangulos.config(text="La cantidad actual de triangulos es: "+str(cantidadTriangulos))
+        labelTriangulos.place(x=300,y=230)
+    Variable_A.set(0)
+    Variable_B.set(0)
+    Variable_C.set(0)
+
+
+
+
+botonAgregarTriangulo=tk.Button(master,text="Añadir Triangulo",command=AgregarTriangulo)
+
+
+
 
 def borrarSecuencia():
     global  vectorResultadosNumeros
@@ -321,6 +362,10 @@ def borrarVariables():
 botonBorrarSecuencia=tk.Button(master,text="Borrar variables",command=borrarVariables)
 botonBorrarSecuencia.place(y=540)
 def VariableSeleccionada(event):
+    global labelTriangulos
+    global listaTraingulo
+
+    global cantidadTriangulos
 
     global label_Me
     global texto_Me
@@ -353,6 +398,28 @@ def VariableSeleccionada(event):
 
     label_Beta.place_forget()
     texto_Beta.place_forget()
+
+
+    global label_A
+    global entrada_A
+
+    label_A.place_forget()
+    entrada_A.place_forget()
+
+    global label_B
+    global entrada_B
+
+    label_B.place_forget()
+    entrada_B.place_forget()
+
+    global label_C
+    global entrada_C
+
+    global botonAgregarTriangulo
+    botonAgregarTriangulo.place_forget()
+
+    label_C.place_forget()
+    entrada_C.place_forget()
 
     if varStringVariable.get()=="Box Muller":
         #label_Me.place(x=300,y=90)
@@ -401,6 +468,18 @@ def VariableSeleccionada(event):
         label_Ca.place(x=300,y=170)
         texto_Ca.place(x=300,y=190)
         botonVariable.place(x=300,y=210)
+    elif varStringVariable.get()=="Composicion":
+        label_A.place(x=300,y=90)
+        entrada_A.place(x=300,y=110)
+        label_B.place(x=300, y=130)
+        entrada_B.place(x=300, y=150)
+        label_C.place(x=300, y=170)
+        entrada_C.place(x=300, y=190)
+        botonAgregarTriangulo.place(x=300,y=210)
+        labelTriangulos.place(x=300,y=230)
+        label_Ca.place(x=300, y=250)
+        texto_Ca.place(x=300, y=270)
+        botonVariable.place(x=300,y=290)
     print()
 
 
