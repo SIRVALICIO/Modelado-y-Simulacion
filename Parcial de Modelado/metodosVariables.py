@@ -220,3 +220,34 @@ def composicion(listaABC,R1,R2,tamaño):
                 ListaProbabilidades.append(resul)
     return ListaProbabilidades
 
+def metodoDirecto(r1,r2,tamaño,u,desviacion):
+    lista=[]
+    for i in range(0,tamaño):
+        z1= math.sqrt((-2*math.log(r1[i])))* math.cos(2 *math.pi *r2[i])
+        z2=math.sqrt((-2*math.log(r1[i])))* math.sin(2 *math.pi *r2[i])
+        x1=u+desviacion*z1
+        x2=u+desviacion*z2
+
+        lista.append(x1)
+    return lista
+
+def metodoTransformadaInversa(r1,tamaño,delta):
+    lista=[]
+    for i in range(0,tamaño):
+        X=(-1/delta) * math.log(1-r1[i])
+        lista.append(X)
+    return lista
+def metodoAceptacionYrechazo(r1,r2,tamaño):
+    listax=[]
+    listafx=[]
+    listaxy=[]
+    for i in range(0,tamaño):
+        X1=-1+(r1[i]*(1 *-1))
+        fx1= (((X1)**6) - (3*((X1)**4)) + (9*((X1)**2)) )/24
+        fx15= fx1/1.5
+
+        if r2[i]<=fx15:
+            listafx.append(fx1)
+            listax.append(X1)
+    listaxy=[listax,listafx]
+    return listaxy

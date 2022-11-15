@@ -73,9 +73,22 @@ label_C=tk.Label(master,text="Ingrese el punto C del triangulo")
 entrada_C=tk.Entry(master,textvariable =Variable_C)
 
 
+label_Tamaño_datos=tk.Label(master,text="")
+def ListadoVariables():
+    tamaño=""
+    cont=0
+    global label_Tamaño_datos
+    for i in vectorResultadosNumeros:
+        cont+=1
+        tamaño+= "La secuencia: "+str(cont)+ "es de tamaño:  "+str(len(i))+"\n"
+        print(i)
+    label_Tamaño_datos.config(text=tamaño)
+
+
 
 
 def generarSecuencia():
+    global label_Tamaño_datos
     if varStringGenerador.get() == "Visual Base":
         res =ma.VisualBase(texto_x0.get())
         vectorResultadosNumeros.append(res)
@@ -93,6 +106,11 @@ def generarSecuencia():
         res = ma.Fortran(texto_x0.get())
         vectorResultadosNumeros.append(res)
         print(vectorResultadosNumeros)
+
+    ListadoVariables()
+    label_Tamaño_datos.place(x=0, y=310)
+
+
 
 
 botonGenerar=tk.Button(master,text="Generar secuencia",command=generarSecuencia)
@@ -197,6 +215,19 @@ texto_alpha=tk.Entry(master,textvariable=variable_alpha)
 variable_Beta=tk.DoubleVar()
 label_Beta=tk.Label(master,text="Ingrese un valor de beta que quiere")
 texto_Beta=tk.Entry(master,textvariable=variable_Beta)
+
+variable_U=tk.DoubleVar()
+label_U=tk.Label(master,text="Ingrese un valor de u que quiere")
+texto_U=tk.Entry(master,textvariable=variable_U)
+
+Variable_Desviacion=tk.DoubleVar()
+label_Desviacion=tk.Label(master,text="Ingrese un valor de u que quiere")
+texto_Desviacion=tk.Entry(master,textvariable=Variable_Desviacion)
+
+Variable_Delta=tk.DoubleVar()
+label_Delta=tk.Label(master,text="Ingrese un valor de u que quiere")
+texto_Delta=tk.Entry(master,textvariable=Variable_Delta)
+
 
 labelTriangulos=tk.Label(master,text="La cantidad actual de triangulos es: "+str(cantidadTriangulos))
 
@@ -307,8 +338,30 @@ def generarVariable():
             plot.hist(resul, 100)
             canvas.draw()
             canvas.get_tk_widget().place(x=600)
+    elif varStringVariable.get() == "Transformada Directa":
 
+        resul = mv.metodoDirecto(vectorResultadosNumeros[0],vectorResultadosNumeros[1],variable_Ca.get(),variable_U.get(),Variable_Desviacion.get())
+        print(resul)
+        plot = fig.add_subplot(111)
+        plot.hist(resul, 100)
+        canvas.draw()
+        canvas.get_tk_widget().place(x=600)
+        canvas.get_tk_widget().place(x=600)
+    elif varStringVariable.get() == "Transformada Inversa":
 
+        resul = mv.metodoTransformadaInversa(vectorResultadosNumeros[0],variable_Ca.get(),Variable_Delta.get())
+        print(resul)
+        plot = fig.add_subplot(111)
+        plot.hist(resul, 100)
+        canvas.draw()
+        canvas.get_tk_widget().place(x=600)
+    elif varStringVariable.get()=="Aceptacion y rechazo":
+        resul = mv.metodoAceptacionYrechazo(vectorResultadosNumeros[0],vectorResultadosNumeros[1], variable_Ca.get())
+        print(resul)
+        plot = fig.add_subplot(111)
+        plot.scatter(resul[0], resul[1])
+        canvas.draw()
+        canvas.get_tk_widget().place(x=600)
     print()
 
 botonVariable=tk.Button(master,text="Generar secuencia",command=generarVariable)
@@ -341,9 +394,10 @@ botonAgregarTriangulo=tk.Button(master,text="Añadir Triangulo",command=AgregarT
 
 
 
-
 def borrarSecuencia():
+    ListadoVariables()
     global  vectorResultadosNumeros
+
     vectorResultadosNumeros.clear()
     print(vectorResultadosNumeros)
 
@@ -351,7 +405,7 @@ def borrarSecuencia():
                                 "La secuencia se elimino con exito")
 
 botonBorrarSecuencia=tk.Button(master,text="Borrar secuencias existentes",command=borrarSecuencia)
-botonBorrarSecuencia.place(y=500)
+botonBorrarSecuencia.place(y=900)
 
 def borrarVariables():
     mv.limpiarXI()
@@ -360,7 +414,7 @@ def borrarVariables():
                            "Las variables se elimino con exito")
 
 botonBorrarSecuencia=tk.Button(master,text="Borrar variables",command=borrarVariables)
-botonBorrarSecuencia.place(y=540)
+botonBorrarSecuencia.place(y=920)
 def VariableSeleccionada(event):
     global labelTriangulos
     global listaTraingulo
@@ -415,11 +469,19 @@ def VariableSeleccionada(event):
     global label_C
     global entrada_C
 
+    global label_U
+    global texto_U
+
+
+    global label_Desviacion
+    global texto_Desviacion
     global botonAgregarTriangulo
     botonAgregarTriangulo.place_forget()
 
     label_C.place_forget()
     entrada_C.place_forget()
+    global label_Delta
+    global texto_Delta
 
     if varStringVariable.get()=="Box Muller":
         #label_Me.place(x=300,y=90)
@@ -480,6 +542,25 @@ def VariableSeleccionada(event):
         label_Ca.place(x=300, y=250)
         texto_Ca.place(x=300, y=270)
         botonVariable.place(x=300,y=290)
+    elif varStringVariable.get()=="Transformada Directa":
+        label_U.place(x=300,y=90)
+        texto_U.place(x=300,y=110)
+        label_Desviacion.place(x=300,y=130)
+        texto_Desviacion.place(x=300,y=150)
+        label_Ca.place(x=300, y=170)
+        texto_Ca.place(x=300, y=190)
+        botonVariable.place(x=300,y=210)
+    elif varStringVariable.get()=="Transformada Inversa":
+        label_Delta.place(x=300,y=90)
+        texto_Delta.place(x=300,y=110)
+        label_Ca.place(x=300, y=130)
+        texto_Ca.place(x=300, y=150)
+        botonVariable.place(x=300,y=170)
+    elif varStringVariable.get()=="Aceptacion y rechazo":
+        label_Ca.place(x=300, y=90)
+        texto_Ca.place(x=300, y=110)
+        botonVariable.place(x=300, y=130)
+
     print()
 
 
@@ -518,7 +599,8 @@ varStringVariable=tk.StringVar()
 listboxVa=ttk.Combobox(master,
                      textvariable=varStringVariable,
                      height=6)
-listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial","Gamma","Composicion"]
+listboxVa["values"]=["Box Muller","Logaritmica Normal","Chi cuadrado normal","T","F","Exponencial","Gamma","Composicion",
+                     "Transformada Directa","Transformada Inversa","Aceptacion y rechazo"]
 listboxVa["state"]="readonly"
 
 LabelMetodo.place(x=300,y=50)
