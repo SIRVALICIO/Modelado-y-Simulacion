@@ -79,6 +79,7 @@ def generarSecuencia():
         print(vectorResultadosNumeros)
 
 
+
 botonGenerar=tk.Button(master,text="Generar secuencia",command=generarSecuencia)
 
 

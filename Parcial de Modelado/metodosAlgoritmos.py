@@ -72,3 +72,26 @@ def CongruencialCuadratico(g,a,b,c,x0):
         resultados_ri.append(ri)
         X0 = x_1
     return resultados_ri
+
+def AlgoritmoLineal(a,x,c,m):
+    xresultante=((a*x)+c)%m
+    return xresultante
+
+def ResolverLieal(k,c,g,x):
+
+
+
+    m=int(2**g)
+    a=1+(4*k)
+
+    semilla=[]
+    pseudoAle=[]
+
+    semilla.append(AlgoritmoLineal(a,x,c,m))
+    pseudoAle.append(semilla[-1]/(m-1))
+
+    for i in range(0,m):
+        semilla.append(AlgoritmoLineal(a, semilla[-1], c, m))
+        pseudoAle.append(semilla[-1] / (m - 1))
+
+    return pseudoAle

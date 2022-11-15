@@ -106,6 +106,10 @@ def generarSecuencia():
         res = ma.Fortran(texto_x0.get())
         vectorResultadosNumeros.append(res)
         print(vectorResultadosNumeros)
+    elif varStringGenerador.get() == "Algoritmo Lineal":
+        res = ma.ResolverLieal(float(texto_k.get()), float(texto_c.get()), float(texto_g.get()), float(texto_x0.get()))
+        vectorResultadosNumeros.append(res)
+        print(res)
 
     ListadoVariables()
     label_Tamaño_datos.place(x=0, y=310)
@@ -186,8 +190,16 @@ def algoritmoSeleccionado(event):
         texto_x0.place(x=0, y=110)
         botonGenerar.place(x=0, y=130)
         print(texto_x0.get())
-
-
+    elif varStringGenerador.get() == "Algoritmo Lineal":
+        label_g.place(x=0, y=90)
+        texto_g.place(x=0, y=110)
+        label_k.place(x=0, y=130)
+        texto_k.place(x=0, y=150)
+        label_c.place(x=0, y=170)
+        texto_c.place(x=0, y=190)
+        label_x0.place(x=0, y=210)
+        texto_x0.place(x=0, y=230)
+        botonGenerar.place(x=0, y=250)
 
 
 variable_Me=tk.DoubleVar()
@@ -582,7 +594,7 @@ varStringGenerador=tk.StringVar()
 listboxAl=ttk.Combobox(master,
                      textvariable=varStringGenerador,
                      height=6)
-listboxAl["values"]=["Visual Base","Fortran","Congruencial Multiplicativo","Congruencial Cuadratico"]
+listboxAl["values"]=["Visual Base","Fortran","Congruencial Multiplicativo","Congruencial Cuadratico","Algoritmo Lineal"]
 listboxAl["state"]="readonly"
 
 LabelGrafica.place(x=0,y=50)
