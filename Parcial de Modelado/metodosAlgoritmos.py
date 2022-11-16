@@ -95,3 +95,193 @@ def ResolverLieal(k,c,g,x):
         pseudoAle.append(semilla[-1] / (m - 1))
 
     return pseudoAle
+
+def AlgortimoCuadrados(x0):
+    lista=[]
+    ahora=x0
+
+    x1=str(x0**2)
+    while len(x1)>4:
+        x1=x1[1:-1]
+    print(len(x1))
+
+    if len(x1) == 4:
+        print("aqui")
+        lista.append(int(x1)/10000)
+    else:
+        lista.append(int(x1)/10000)
+    x0=int(x1)
+
+    x1 = str(x0 ** 2)
+    while len(x1) > 4:
+        x1 = x1[1:-1]
+    print(len(x1))
+
+    if len(x1) == 4:
+        print("aqui")
+        lista.append(int(x1) / 10000)
+    else:
+        lista.append(int(x1) / 10000)
+    x0 = int(x1)
+
+    while(lista[-1]!=lista[0]):
+        x1 = str(x0 ** 2)
+        print(x1)
+        while len(x1) > 4:
+            x1 = x1[1:-1]
+        print(len(x1))
+
+
+
+        if len(x1) == 4:
+            print("aqui")
+            resul=(int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+        else:
+            resul=(int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+        x0 = int(x1)
+
+    return lista
+
+
+def AlgortimosProductos(x0,x1):
+    lista=[]
+    X1=int(x1)
+    #print(x0)
+    #print(x1)
+    x1=str(x0*X1)
+    #print(x1)
+    x0=X1
+
+
+    while len(x1)>4:
+        x1=x1[1:-1]
+    #print(x0)
+    #print(x1)
+
+    if len(x1) == 4:
+
+        X1=int(x1)
+        lista.append(int(x1)/10000)
+    else:
+        X1 = int(x1)
+        lista.append(int(x1)/10000)
+
+    X1 = int(x1)
+
+
+    x1 = str(x0 * X1)
+    #print(x1)
+    x0 = X1
+
+    while len(x1) > 4:
+        x1 = x1[1:-1]
+    #print(x0)
+    #print(x1)
+    if len(x1) == 4:
+
+
+        X1 = int(x1)
+        lista.append(int(x1) / 10000)
+    else:
+        X1 = int(x1)
+        lista.append(int(x1) / 10000)
+
+    while(lista[-1]!=lista[0]):
+        x1 = str(x0 * X1)
+        x0 = X1
+        while len(x1) > 4:
+            x1 = x1[1:-1]
+        #print(len(x1))
+
+
+
+        if len(x1) == 4:
+            X1 = int(x1)
+            resul=(int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+        else:
+            X1 = int(x1)
+            resul = (int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+        x0 = int(x1)
+
+    return lista
+
+
+def AlgortimosConstante(x0,x1):
+    lista=[]
+    X1=int(x1)
+    #print(x0)
+    #print(x1)
+    x1=str(x0*X1)
+    #print(x1)
+
+
+
+    while len(x1)>4:
+        x1=x1[1:-1]
+    #print(x0)
+    #print(x1)
+
+    if len(x1) == 4:
+
+        X1=int(x1)
+        lista.append(int(x1)/10000)
+    else:
+        X1 = int(x1)
+        lista.append(int(x1)/10000)
+
+    X1 = int(x1)
+
+
+    x1 = str(x0 * X1)
+    #print(x1)
+
+
+    while len(x1) > 4:
+        x1 = x1[1:-1]
+    #print(x0)
+    #print(x1)
+    if len(x1) == 4:
+
+
+        X1 = int(x1)
+        lista.append(int(x1) / 10000)
+    else:
+        X1 = int(x1)
+        lista.append(int(x1) / 10000)
+
+    while(lista[-1]!=lista[0]):
+        x1 = str(x0 * X1)
+
+        while len(x1) > 4:
+            x1 = x1[1:-1]
+        #print(len(x1))
+
+
+
+        if len(x1) == 4:
+            X1 = int(x1)
+            resul=(int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+        else:
+            X1 = int(x1)
+            resul = (int(x1) / 10000)
+            if lista.__contains__(resul):
+                break
+            lista.append(resul)
+
+
+    return lista

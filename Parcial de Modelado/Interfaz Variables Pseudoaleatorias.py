@@ -47,6 +47,10 @@ variable_x0=tk.IntVar()
 label_x0=tk.Label(master,text="ingrese una semilla")
 texto_x0=tk.Entry(master,textvariable =variable_x0)
 
+variable_x1=tk.IntVar()
+label_x1=tk.Label(master,text="ingrese una 2 semilla")
+texto_x1=tk.Entry(master,textvariable =variable_x1)
+
 
 variable_a=tk.IntVar()
 label_a=tk.Label(master,text="Ingrese un valor de A")
@@ -110,6 +114,37 @@ def generarSecuencia():
         res = ma.ResolverLieal(float(texto_k.get()), float(texto_c.get()), float(texto_g.get()), float(texto_x0.get()))
         vectorResultadosNumeros.append(res)
         print(res)
+    elif varStringGenerador.get()=="Cuadrados medios":
+
+        if len(texto_x0.get())!=4:
+            tkinter.messagebox.showinfo("NO se puede realizar la accion",
+                                        "Se necesita que la semilla tenga un tamaño fijado de 4 unidades")
+        else:
+
+            res = ma.AlgortimoCuadrados(float(texto_x0.get()))
+            vectorResultadosNumeros.append(res)
+            print(res)
+    elif varStringGenerador.get() == "Productos medios":
+
+        if len(texto_x0.get() ) != 4 or len(texto_x1.get())!=4 :
+            tkinter.messagebox.showinfo("NO se puede realizar la accion",
+                                        "Se necesita que la semilla tenga un tamaño fijado de 4 unidades")
+        else:
+
+            res = ma.AlgortimosProductos(float(texto_x0.get()),float(texto_x1.get()))
+            vectorResultadosNumeros.append(res)
+            print(res)
+
+    elif varStringGenerador.get() == "Mutiplicador constante":
+
+        if len(texto_x0.get()) != 4 or len(texto_x1.get())!=4 :
+            tkinter.messagebox.showinfo("NO se puede realizar la accion",
+                                        "Se necesita que la semilla tenga un tamaño fijado de 4 unidades")
+        else:
+
+            res = ma.AlgortimosConstante(float(texto_x0.get()),float(texto_x1.get()))
+            vectorResultadosNumeros.append(res)
+            print(res)
 
     ListadoVariables()
     label_Tamaño_datos.place(x=0, y=310)
@@ -153,6 +188,11 @@ def algoritmoSeleccionado(event):
     global texto_a
     label_a.place_forget()
     texto_a.place_forget()
+
+    global label_x1
+    global texto_x1
+    label_x1.place_forget()
+    texto_x1.place_forget()
 
     global botonGenerar
 
@@ -200,6 +240,24 @@ def algoritmoSeleccionado(event):
         label_x0.place(x=0, y=210)
         texto_x0.place(x=0, y=230)
         botonGenerar.place(x=0, y=250)
+    elif varStringGenerador.get()=="Cuadrados medios":
+        label_x0.place(x=0, y=90)
+        texto_x0.place(x=0, y=110)
+        botonGenerar.place(x=0, y=130)
+    elif varStringGenerador.get()=="Productos medios":
+        label_x0.place(x=0, y=90)
+        texto_x0.place(x=0, y=110)
+        label_x1.place(x=0,y=130)
+        texto_x1.place(x=0,y=150)
+        botonGenerar.place(x=0, y=170)
+    elif varStringGenerador.get()=="Mutiplicador constante":
+        label_x0.place(x=0, y=90)
+        texto_x0.place(x=0, y=110)
+        label_x1.place(x=0, y=130)
+        texto_x1.place(x=0, y=150)
+        botonGenerar.place(x=0, y=170)
+
+
 
 
 variable_Me=tk.DoubleVar()
@@ -594,7 +652,7 @@ varStringGenerador=tk.StringVar()
 listboxAl=ttk.Combobox(master,
                      textvariable=varStringGenerador,
                      height=6)
-listboxAl["values"]=["Visual Base","Fortran","Congruencial Multiplicativo","Congruencial Cuadratico","Algoritmo Lineal"]
+listboxAl["values"]=["Visual Base","Fortran","Congruencial Multiplicativo","Congruencial Cuadratico","Algoritmo Lineal","Cuadrados medios","Productos medios","Mutiplicador constante"]
 listboxAl["state"]="readonly"
 
 LabelGrafica.place(x=0,y=50)

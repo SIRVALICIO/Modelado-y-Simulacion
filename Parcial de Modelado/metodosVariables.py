@@ -240,10 +240,10 @@ def metodoTransformadaInversa(r1,tamaño,delta):
 def metodoAceptacionYrechazo(r1,r2,tamaño):
     listax=[]
     listafx=[]
-    listaxy=[]
+
     for i in range(0,tamaño):
-        X1=-1+(r1[i]*(1 *-1))
-        fx1= (((X1)**6) - (3*((X1)**4)) + (9*((X1)**2)) )/24
+        X1=-1+(r1[i]*(2))
+        fx1= (3/2)*((X1)**2)
         fx15= fx1/1.5
 
         if r2[i]<=fx15:
